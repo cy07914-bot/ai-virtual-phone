@@ -70,6 +70,11 @@ export function isPersonalScreenChatCloudReady(): boolean {
 
 /** 只有部署记录和当前云备份仍指向同一个项目时才启用，防止换项目后误发数据。 */
 export function isPersonalPushCloudActive(): boolean {
+  if (
+    typeof navigator !== "undefined"
+    && navigator.userAgent.includes("FloatShell/")
+  ) return false;
+
   const state = loadPersonalPushCloudState();
   const backup = loadCloudBackupConfig();
   return Boolean(
